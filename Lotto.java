@@ -2,7 +2,7 @@
 // Date created: 9/27/22
 // Last modified: 9/27/22
 // Generates a lottery number from personal information
-// Error count: 155
+// Error count: 157
 
 /*
 _, _, _, _, _, _  Powerball: _
@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.Box;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
 
 public class Lotto{
 	
@@ -51,29 +52,31 @@ public class Lotto{
 		
 		//Create the panel that input will be gathered on
 		JPanel questionPanel = new JPanel();
+		questionPanel.setLayout(new BoxLayout(questionPanel, BoxLayout.PAGE_AXIS));
 		questionPanel.add(new JLabel("Please enter the requested values below"));
-		questionPanel.add(Box.createHorizontalStrut(15));
+		questionPanel.add(Box.createVerticalStrut(15));
 		questionPanel.add(new JLabel("Hourly wage: "));
 		questionPanel.add(wageField);
-		questionPanel.add(Box.createHorizontalStrut(15));
+		questionPanel.add(Box.createVerticalStrut(15));
 		questionPanel.add(new JLabel("Favorite month: "));
 		questionPanel.add(monthField);
+		questionPanel.add(Box.createHorizontalStrut(30));
 		questionPanel.add(Box.createVerticalStrut(15));
 		questionPanel.add(new JLabel("Day of birth: "));
 		questionPanel.add(birthdayField);
-		questionPanel.add(Box.createHorizontalStrut(15));
+		questionPanel.add(Box.createVerticalStrut(15));
 		questionPanel.add(new JLabel("Year you graduated high school: "));
 		questionPanel.add(graduationField);
-		questionPanel.add(Box.createHorizontalStrut(15));
+		questionPanel.add(Box.createVerticalStrut(15));
 		questionPanel.add(new JLabel("A phrase or word you like: "));
 		questionPanel.add(phraseField);
-		questionPanel.add(Box.createHorizontalStrut(15));
+		questionPanel.add(Box.createVerticalStrut(15));
 		questionPanel.add(new JLabel("An angle: "));
 		questionPanel.add(angleField);
-		questionPanel.add(Box.createHorizontalStrut(15));
+		questionPanel.add(Box.createVerticalStrut(15));
 		questionPanel.add(new JLabel("A random keyboard key: "));
 		questionPanel.add(keyField);
-		questionPanel.add(Box.createHorizontalStrut(15));
+		questionPanel.add(Box.createVerticalStrut(15));
 		
 		//Gather input	
 		boolean inputTest = true;
@@ -185,7 +188,7 @@ public class Lotto{
 		}
 		
 		//Create and present formatted result
-		String finalMessage = "Powerball number: " + powerballNumber + "\n\n";
+		String finalMessage = "Powerball number: " + powerballNumber + "\nNumbers: ";
 		for(int k = 0; k < numbers.length; k++){
 			finalMessage += numbers[k];
 			if (k < (numbers.length - 1)){

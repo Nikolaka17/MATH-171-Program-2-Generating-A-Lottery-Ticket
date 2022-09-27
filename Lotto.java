@@ -96,9 +96,9 @@ public class Lotto{
 			//Test entered wage
 			try{
 				if (Integer.parseInt(wageField.getText()) < 0){
-					powerballNumber = DEFAULT_WAGE / 69;
+					powerballNumber = 69 / DEFAULT_WAGE;
 				}else{
-					powerballNumber = Integer.parseInt(wageField.getText())/69;
+					powerballNumber = 69 / Integer.parseInt(wageField.getText());
 				}
 			}catch (Exception e){
 				inputTest = true;

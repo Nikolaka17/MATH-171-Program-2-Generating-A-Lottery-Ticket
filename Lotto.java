@@ -2,7 +2,7 @@
 // Date created: 9/27/22
 // Last modified: 9/27/22
 // Generates a lottery number from personal information
-// Error count: 157
+// Error count: 159
 
 /*
 _, _, _, _, _, _  Powerball: _
@@ -37,7 +37,9 @@ public class Lotto{
 		
 		//Asign variables
 		int powerballNumber = 1;
-		String[] positions = new String[]{"favorite month", "day of birth", "graduation year", "phrase", "angle", "key"};
+		String[] positions = new String[]{"favorite month", "day of birth",
+		                                  "graduation year", "phrase", "angle",
+										  "key"};
 		int[] numbers = new int[]{0,0,0,0,0,0};
 		String warningMessage = "";
 		
@@ -82,7 +84,9 @@ public class Lotto{
 		boolean inputTest = true;
 		while (inputTest){
 			inputTest = false;
-			int result = JOptionPane.showConfirmDialog(null, questionPanel, "Lotto", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int result = JOptionPane.showConfirmDialog(null, questionPanel, 
+			                          "Lotto", JOptionPane.OK_CANCEL_OPTION, 
+					                   JOptionPane.QUESTION_MESSAGE);
 			
 			//Emergency closure
 			if (result != JOptionPane.OK_OPTION){
@@ -94,7 +98,7 @@ public class Lotto{
 				if (Integer.parseInt(wageField.getText()) < 0){
 					powerballNumber = DEFAULT_WAGE / 69;
 				}else{
-					powerballNumber = Integer.parseInt(wageField.getText()) / 69;
+					powerballNumber = Integer.parseInt(wageField.getText())/69;
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -103,10 +107,12 @@ public class Lotto{
 			
 			//Test entered month
 			try{
-				if (Integer.parseInt(monthField.getText()) < 1){
+				if (Integer.parseInt(monthField.getText()) < 1 ||
+				        Integer.parseInt(monthField.getText()) > 12){
 					numbers[0] = ((DEFAULT_MONTH * 13) % 69) + 1;
 				}else{
-					numbers[0] = (((Integer.parseInt(monthField.getText()) * 13) % 69) + 1);
+					numbers[0] = (((Integer.parseInt(monthField.getText())
+					                * 13) % 69) + 1);
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -115,10 +121,13 @@ public class Lotto{
 			
 			//Test entered day
 			try{
-				if (Integer.parseInt(birthdayField.getText()) < 1 || Integer.parseInt(birthdayField.getText()) > 31){
+				if (Integer.parseInt(birthdayField.getText()) < 1 || 
+				        Integer.parseInt(birthdayField.getText()) > 31){
 					numbers[1] = (int)(Math.pow(DEFAULT_DAY, 2) % 69) + 1;
 				}else{
-					numbers[1] = (int)(Math.pow(Integer.parseInt(birthdayField.getText()), 2) % 69) + 1;
+					numbers[1] = (int)(Math.pow(
+					                   Integer.parseInt(birthdayField.getText())
+									   , 2) % 69) + 1;
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -130,7 +139,8 @@ public class Lotto{
 				if (Integer.parseInt(graduationField.getText()) < 1){
 					numbers[2] = ((DEFAULT_YEAR / 2) % 69) + 1;
 				}else{
-					numbers[2] = ((Integer.parseInt(graduationField.getText()) / 2) % 69) + 1;
+					numbers[2] = ((Integer.parseInt(graduationField.getText())
+ 					               / 2) % 69) + 1;
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -140,34 +150,42 @@ public class Lotto{
 			//Test entered phrase
 			try{
 				if (phraseField.getText() != null){
-					numbers[3] = (((phraseField.getText()).length() * 4) % 69) + 1;
+					numbers[3] = (((phraseField.getText()).length() 
+					                * 4) % 69) + 1;
 				}else{
 					numbers[3] = 1;
 				}
 			}catch (Exception e){
 				inputTest = true;
-				warningMessage += "There was a problem processing your phrase\n";
+				warningMessage += "There was a problem processing your "+
+				                  "phrase\n";
 			}
 			
 			//Test entered angle
 			try{
-				numbers[4] = (int)((Math.abs(Math.sin(Integer.parseInt(angleField.getText()) * Math.PI / 180)) * 68) + 1);
+				numbers[4] = (int)((Math.abs(Math.sin(
+				                    Integer.parseInt(angleField.getText())
+									* Math.PI / 180)) * 68) + 1);
 			}catch (Exception e){
 				inputTest = true;
-				warningMessage += "There was a problem processing your phrase\n";
+				warningMessage += "There was a problem processing"+
+				                  " your phrase\n";
 			}
 			
 			//Test entered key
 			try{
 				if ((keyField.getText()).length() == 1){
-					numbers[5] = (int)((((((keyField.getText()).charAt(0) + 3) / 4) * 5) % 69) + 1);
+					numbers[5] = (int)((((((keyField.getText()).charAt(0) + 3)
+                        					/ 4) * 5) % 69) + 1);
 				}else{
 					inputTest = true;
-					warningMessage += "It seems you entered more than a single key";
+					warningMessage += "It seems you entered more"+
+					                  " than a single key";
 				}
 			}catch (Exception e){
 				inputTest = true;
-				warningMessage += "There was a problem processing your keystroke";
+				warningMessage += "There was a problem"+
+				                  " processing your keystroke";
 			}
 			
 			//Check for repeats
@@ -175,26 +193,32 @@ public class Lotto{
 				for (int j = 0; j < numbers.length; j++){
 					if (numbers[i] == numbers[j] && numbers[i] != 0 && i != j){
 						inputTest = true;
-						warningMessage += ("Your " + positions[i] + " and " + positions[j] + " gave the same value, please change one");
+						warningMessage += ("Your " + positions[i] + " and " + 
+						                   positions[j] + " gave the same"+
+										   " value, please change one");
 					}
 				}
 			}
 			
 			if (inputTest){
-				JOptionPane.showMessageDialog(null, "There are a few problems with your input:\n\n" + warningMessage, "Lotto", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "There are a few problems "
+				                      +"with your input:\n\n" + warningMessage,
+							           "Lotto", JOptionPane.ERROR_MESSAGE);
 				numbers = new int[]{0, 0, 0, 0, 0, 0};
 				warningMessage = "";
 			}
 		}
 		
 		//Create and present formatted result
-		String finalMessage = "Powerball number: " + powerballNumber + "\nNumbers: ";
+		String finalMessage = "Powerball number: " + 
+		                       powerballNumber + "\nNumbers: ";
 		for(int k = 0; k < numbers.length; k++){
 			finalMessage += numbers[k];
 			if (k < (numbers.length - 1)){
 				finalMessage += ", ";
 			}
 		}
-		JOptionPane.showMessageDialog(null, finalMessage, "Lotto", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, finalMessage, "Lotto",
+		                              JOptionPane.INFORMATION_MESSAGE);
 	}
 }

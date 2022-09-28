@@ -1,21 +1,18 @@
 // Author: Nikolas Leslie
 // Date created: 9/27/22
-// Last modified: 9/27/22
+// Last modified: 9/28/22
 // Generates a lottery number from personal information
 // Error count: 159
 
 /*
 _, _, _, _, _, _  Powerball: _
-Numbers between 1-69, no duplacates
-
-Powerball number: 69/hourly wage
-First number: favorite month * 13 % 69 + 1
-Second number: date of birth squared % 69 + 1
-Third number: graduation year / 2 % 69 + 1
-Fourth number: phrase length * 4 % 69 + 1
-Fith number: absolute value of the sin of an angle * 68 + 1
-Sixth number: key on keyboard ascii + 3 / 4 * 5 %69 + 1
-
+Numbers between 1-70, no duplacates
+Powerball number: 70/hourly wage
+First number: favorite month * 13 % 70 + 1
+Second number: date of birth squared % 70 + 1
+Third number: graduation year / 2 % 70 + 1
+Fourth number: phrase length * 4 % 70 + 1
+Fith number: absolute value of the sin of an angle * 69 + 1
 need default month/day/year/wage
 */
 
@@ -38,9 +35,9 @@ public class Lotto{
 		//Asign variables
 		int powerballNumber = 1;
 		String[] positions = new String[]{"favorite month", "day of birth",
-		                                  "graduation year", "phrase", "angle",
-										  "key"};
-		int[] numbers = new int[]{0,0,0,0,0,0};
+		                                  "graduation year", "phrase","angle"
+										  };
+		int[] numbers = new int[]{0,0,0,0,0};
 		String warningMessage = "";
 		
 		//Create input fields
@@ -50,7 +47,7 @@ public class Lotto{
 		JTextField graduationField = new JTextField(5);
 		JTextField phraseField = new JTextField(5);
 		JTextField angleField = new JTextField(5);
-		JTextField keyField = new JTextField(5);
+		//JTextField keyField = new JTextField(5);
 		
 		//Create the panel that input will be gathered on
 		JPanel questionPanel = new JPanel();
@@ -76,9 +73,9 @@ public class Lotto{
 		questionPanel.add(new JLabel("An angle: "));
 		questionPanel.add(angleField);
 		questionPanel.add(Box.createVerticalStrut(15));
-		questionPanel.add(new JLabel("A random keyboard key: "));
-		questionPanel.add(keyField);
-		questionPanel.add(Box.createVerticalStrut(15));
+		//questionPanel.add(new JLabel("A random keyboard key: "));
+		//questionPanel.add(keyField);
+		//questionPanel.add(Box.createVerticalStrut(15));
 		
 		//Gather input	
 		boolean inputTest = true;
@@ -96,9 +93,9 @@ public class Lotto{
 			//Test entered wage
 			try{
 				if (Integer.parseInt(wageField.getText()) < 0){
-					powerballNumber = 69 / DEFAULT_WAGE;
+					powerballNumber = 70 / DEFAULT_WAGE;
 				}else{
-					powerballNumber = 69 / Integer.parseInt(wageField.getText());
+					powerballNumber = 70 / Integer.parseInt(wageField.getText());
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -109,10 +106,10 @@ public class Lotto{
 			try{
 				if (Integer.parseInt(monthField.getText()) < 1 ||
 				        Integer.parseInt(monthField.getText()) > 12){
-					numbers[0] = ((DEFAULT_MONTH * 13) % 69) + 1;
+					numbers[0] = ((DEFAULT_MONTH * 13) % 70) + 1;
 				}else{
 					numbers[0] = (((Integer.parseInt(monthField.getText())
-					                * 13) % 69) + 1);
+					                * 13) % 70) + 1);
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -123,11 +120,11 @@ public class Lotto{
 			try{
 				if (Integer.parseInt(birthdayField.getText()) < 1 || 
 				        Integer.parseInt(birthdayField.getText()) > 31){
-					numbers[1] = (int)(Math.pow(DEFAULT_DAY, 2) % 69) + 1;
+					numbers[1] = (int)(Math.pow(DEFAULT_DAY, 2) % 70) + 1;
 				}else{
 					numbers[1] = (int)(Math.pow(
 					                   Integer.parseInt(birthdayField.getText())
-									   , 2) % 69) + 1;
+									   , 2) % 70) + 1;
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -137,10 +134,10 @@ public class Lotto{
 			//Test entered year
 			try{
 				if (Integer.parseInt(graduationField.getText()) < 1){
-					numbers[2] = ((DEFAULT_YEAR / 2) % 69) + 1;
+					numbers[2] = ((DEFAULT_YEAR / 2) % 70) + 1;
 				}else{
 					numbers[2] = ((Integer.parseInt(graduationField.getText())
- 					               / 2) % 69) + 1;
+ 					               / 2) % 70) + 1;
 				}
 			}catch (Exception e){
 				inputTest = true;
@@ -151,7 +148,7 @@ public class Lotto{
 			try{
 				if (phraseField.getText() != null){
 					numbers[3] = (((phraseField.getText()).length() 
-					                * 4) % 69) + 1;
+					                * 4) % 70) + 1;
 				}else{
 					numbers[3] = 1;
 				}
@@ -165,7 +162,7 @@ public class Lotto{
 			try{
 				numbers[4] = (int)((Math.abs(Math.sin(
 				                    Integer.parseInt(angleField.getText())
-									* Math.PI / 180)) * 68) + 1);
+									* Math.PI / 180)) * 69) + 1);
 			}catch (Exception e){
 				inputTest = true;
 				warningMessage += "There was a problem processing"+
@@ -173,10 +170,10 @@ public class Lotto{
 			}
 			
 			//Test entered key
-			try{
+			/*try{
 				if ((keyField.getText()).length() == 1){
 					numbers[5] = (int)((((((keyField.getText()).charAt(0) + 3)
-                        					/ 4) * 5) % 69) + 1);
+                        					/ 4) * 5) % 70) + 1);
 				}else{
 					inputTest = true;
 					warningMessage += "It seems you entered more"+
@@ -186,7 +183,7 @@ public class Lotto{
 				inputTest = true;
 				warningMessage += "There was a problem"+
 				                  " processing your keystroke";
-			}
+			}*/
 			
 			//Check for repeats
 			for (int i = 0; i < numbers.length; i++){
@@ -204,7 +201,7 @@ public class Lotto{
 				JOptionPane.showMessageDialog(null, "There are a few problems "
 				                      +"with your input:\n\n" + warningMessage,
 							           "Lotto", JOptionPane.ERROR_MESSAGE);
-				numbers = new int[]{0, 0, 0, 0, 0, 0};
+				numbers = new int[]{0, 0, 0, 0, 0};
 				warningMessage = "";
 			}
 		}

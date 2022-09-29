@@ -1,6 +1,6 @@
 // Author: Nikolas Leslie
 // Date created: 9/27/22
-// Last modified: 9/28/22
+// Last modified: 9/29/22
 // Generates a lottery number from personal information
 // Error count: 159
 
@@ -29,6 +29,7 @@ public class Lotto{
 	static final int DEFAULT_DAY = 1;
 	static final int DEFAULT_YEAR = 2000;
 	static final int DEFAULT_WAGE = 12;
+	static final String DEFAULT_PHRASE = "E";
 	
 	public static void main(String[] args){
 		
@@ -146,11 +147,11 @@ public class Lotto{
 			
 			//Test entered phrase
 			try{
-				if (phraseField.getText() != null){
+				if (phraseField.getText() != null && phraseField.getText().length() != 0){
 					numbers[3] = (((phraseField.getText()).length() 
 					                * 4) % 70) + 1;
 				}else{
-					numbers[3] = 1;
+					numbers[3] = DEFAULT_PHRASE.length() * 4 % 70 + 1;
 				}
 			}catch (Exception e){
 				inputTest = true;
